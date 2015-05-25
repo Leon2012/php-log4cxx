@@ -188,6 +188,8 @@ static PHP_METHOD(Log4cxx_Logger, __construct) {
     //设置中文编码
 	//setlocale(LC_ALL, "zh_CN.UTF-8"); 
 
+    
+
 	objval->logger = logger;
 }
 
@@ -369,7 +371,7 @@ static PHP_METHOD(Log4cxx_LogManager, getLogger) {
         RETURN_NULL();
     }
 
-    logger_object *objval =  HELLO_FETCH_OBJECT(getThis());
+    //logger_object *objval =  HELLO_FETCH_OBJECT(getThis());
     // if (objval->logger != NULL) {
     // 	php_error_docref(NULL TSRMLS_CC, E_ERROR, "can not init logger.");
     // 	RETURN_NULL();
@@ -379,6 +381,8 @@ static PHP_METHOD(Log4cxx_LogManager, getLogger) {
     if (object_init_ex(return_value, logger_ce) != SUCCESS) {
     	RETURN_NULL();
     }
+    logger_object *objval =  HELLO_FETCH_OBJECT(return_value);
+
 
     string name_str(name, name_len);
     objval->logger = LogManager::getLogger(name_str);

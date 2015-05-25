@@ -50,12 +50,15 @@ log4cxx的php扩展
 
 	<?php
 	
-	//Log4cxx_BasicConfigurator::configure('%d %p [%t] (%F:%L) - %m%n'); #
+	//Log4cxx_BasicConfigurator::configure('%d %p [%t] (%F:%L) - %m%n');
 	//Log4cxx_BasicConfigurator::defaultConfigure();
-	
-	Log4cxx_PropertyConfigurator::configure("./examples/log4j.properties");#加载配置文件
-	
-	$logger = new Log4cxx_Logger(__METHOD__);
+
+	Log4cxx_PropertyConfigurator::configure("./examples/log4cxx.properties");
+
+	//$logger = new Log4cxx_Logger(__METHOD__);
+
+	$logger = Log4cxx_LogManager::getLogger(__METHOD__);
+
 	$logger->info("中文测试 -- info");
 	$logger->warn("中文测试 -- warn");
 	$logger->debug("中文测试 -- debug");

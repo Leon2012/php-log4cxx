@@ -9,14 +9,14 @@ using namespace log4cxx::helpers;
 
 int main() {
 
-	string trace = "ex2";
-	string propertyFile = "./log4cxx.properties";
+	string trace = "AP1";
+	string propertyFile = "./log4j.properties";
 
 	log4cxx::PropertyConfigurator::configure(propertyFile);
 	LoggerPtr logger = Logger::getLogger(trace);
 
 	//设置中文编码
-	setlocale(LC_ALL, "zh_CN.UTF-8"); 
+	//setlocale(LC_ALL, "zh_CN.UTF-8"); 
 
 	logger->info("How to use?");
 	LOG4CXX_INFO(logger, ("你说hello"));

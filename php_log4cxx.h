@@ -24,7 +24,7 @@
 extern zend_module_entry log4cxx_module_entry;
 #define phpext_log4cxx_ptr &log4cxx_module_entry
 
-#define PHP_LOG4CXX_VERSION "0.1.0" /* Replace with version number for your extension */
+#define PHP_LOG4CXX_VERSION "0.1.1" /* Replace with version number for your extension */
 
 #ifdef PHP_WIN32
 #	define PHP_LOG4CXX_API __declspec(dllexport)
@@ -48,7 +48,7 @@ PHP_RSHUTDOWN_FUNCTION(log4cxx);
 PHP_MINFO_FUNCTION(log4cxx);
 
 ZEND_BEGIN_MODULE_GLOBALS(log4cxx)
-  char *init_properties_file;
+  char *property_file;
 ZEND_END_MODULE_GLOBALS(log4cxx)
 
 /* In every utility function you add that needs to use variables 

@@ -30,10 +30,11 @@ extern "C" {
 
 #include "php_log4cxx.h"
 #include <log4cxx/logger.h>
-#include <log4cxx/PropertyConfigurator.h>
-#include <log4cxx/BasicConfigurator.h>
+#include <log4cxx/propertyconfigurator.h>
+#include <log4cxx/basicconfigurator.h>
 #include <log4cxx/patternlayout.h>
 #include <log4cxx/consoleappender.h>
+#include <log4cxx/logmanager.h>
 
 using namespace std;
 using namespace log4cxx;
@@ -49,6 +50,10 @@ static zend_object_handlers log4cxx_basicconfigurator_handlers;
 
 static zend_class_entry *log4cxx_propertyconfigurator_ce;
 static zend_object_handlers log4cxx_propertyconfigurator_handlers;
+
+static zend_class_entry *log4cxx_logmanager_ce;
+static zend_object_handlers log4cxx_logmanager_handlers;
+
 
 static zend_class_entry *logger_ce;
 static zend_object_handlers logger_handlers;
@@ -104,7 +109,7 @@ END_EXTERN_C()
 
 
 PHP_INI_BEGIN()
-    STD_PHP_INI_ENTRY("log4cxx.init_properties_file",      "", PHP_INI_ALL, OnUpdateString, init_properties_file, zend_log4cxx_globals, log4cxx_globals)
+    STD_PHP_INI_ENTRY("log4cxx.property_file",      "", PHP_INI_ALL, OnUpdateString, property_file, zend_log4cxx_globals, log4cxx_globals)
 PHP_INI_END()
 
 
@@ -170,13 +175,18 @@ static PHP_METHOD(Log4cxx_Logger, __construct) {
         RETURN_NULL();
     }
 
+    // if (objval->logger != NULL) {
+    // 	php_error_docref(NULL TSRMLS_CC, E_ERROR, "can not init logger.");
+    // 	RETURN_NULL();
+    // }
+
     //log4cxx_default_basic_configure();
 
     string name_str(name, name_len);
     LoggerPtr logger = Logger::getLogger(name_str);
 
     //设置中文编码
-	setlocale(LC_ALL, "zh_CN.UTF-8"); 
+	//setlocale(LC_ALL, "zh_CN.UTF-8"); 
 
 	objval->logger = logger;
 }
@@ -346,6 +356,40 @@ static zend_function_entry log4cxx_propertyconfigurator_methods[] = {
 	{NULL, NULL, NULL}
 };
 
+
+
+ZEND_BEGIN_ARG_INFO(logmanager_getlogger_arginfo, 0)
+	ZEND_ARG_INFO(0, name)
+ZEND_END_ARG_INFO()
+static PHP_METHOD(Log4cxx_LogManager, getLogger) {
+	char *name;
+	int name_len;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &name, &name_len) == FAILURE) {
+        RETURN_NULL();
+    }
+
+    logger_object *objval =  HELLO_FETCH_OBJECT(getThis());
+    // if (objval->logger != NULL) {
+    // 	php_error_docref(NULL TSRMLS_CC, E_ERROR, "can not init logger.");
+    // 	RETURN_NULL();
+    // }
+
+    //return object
+    if (object_init_ex(return_value, logger_ce) != SUCCESS) {
+    	RETURN_NULL();
+    }
+
+    string name_str(name, name_len);
+    objval->logger = LogManager::getLogger(name_str);
+}
+
+static zend_function_entry log4cxx_logmanager_methods[] = {
+	PHP_ME(Log4cxx_LogManager, getLogger, logmanager_getlogger_arginfo, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
+	{NULL, NULL, NULL}
+};
+
+
 /* {{{ PHP_MINIT_FUNCTION
  */
 PHP_MINIT_FUNCTION(log4cxx)
@@ -370,7 +414,13 @@ PHP_MINIT_FUNCTION(log4cxx)
     memcpy(&log4cxx_propertyconfigurator_handlers, zend_get_std_object_handlers(), sizeof(zend_object_handlers));
     log4cxx_propertyconfigurator_handlers.clone_obj = NULL;
 
-    char *property_file = LOG4CXX_G(init_properties_file);
+    INIT_CLASS_ENTRY(ce, "Log4cxx_LogManager", log4cxx_logmanager_methods);
+    log4cxx_logmanager_ce = zend_register_internal_class(&ce TSRMLS_CC);
+    memcpy(&log4cxx_logmanager_handlers, zend_get_std_object_handlers(), sizeof(zend_object_handlers));
+    log4cxx_logmanager_handlers.clone_obj = NULL;
+
+
+    char *property_file = LOG4CXX_G(property_file);
     if (strlen(property_file) > 0) {
     	log4cxx_load_property_configure(property_file);
     }

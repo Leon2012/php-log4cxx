@@ -9,8 +9,28 @@ log4cxx的php扩展
 	#for osx
 	brew install log4cxx
 	
+	
+	
 	#for ubuntu
-	sudo apt-get install log4cxx
+	
+	wget http://mirrors.cnnic.cn/apache//apr/apr-1.5.2.tar.gz
+	tar zxvf apr-1.5.2.tar.gz
+	cd apr-1.5.2/
+	./configure --prefix=/usr/local
+	make&sudo make install
+	
+	wget http://mirrors.cnnic.cn/apache//apr/apr-util-1.5.4.tar.gz
+	tar zxvf apr-util-1.5.4.tar.gz
+	cd apr-util-1.5.4/
+	./configure --prefix=/usr/local --with-apr=/usr/local
+	make&sudo make install
+	
+	wget http://mirrors.cnnic.cn/apache/logging/log4cxx/0.10.0/apache-log4cxx-0.10.0.tar.gz
+	tar zxvf apache-log4cxx-0.10.0.tar.gz
+	cd apache-log4cxx-0.10.0/
+	./configure --prefix=/usr/local --with-charset=utf-8 --with-logchar=utf-8
+	make&sudo make install
+	
 	
 2，安装php-log4cxx
 

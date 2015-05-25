@@ -1,0 +1,8 @@
+2015-05-23 15:33:05,993 [0x7fff7c015300] INFO myApp - Hello World!
+2015-05-23 15:34:40,165 [0x7fff7c015300] INFO myApp - Hello World!
+2015-05-23 15:41:04,781 [0x7fff7c015300] INFO ex2 - How to use?
+2015-05-23 15:41:04,782 [0x7fff7c015300] INFO ex2 - ??????hello
+2015-05-23 15:44:06,830 [0x7fff7c015300] INFO ex2 - How to use?
+2015-05-23 15:44:06,831 [0x7fff7c015300] INFO ex2 - 你说hello
+2015-05-25 10:07:32,945 [0x7fff779af300] INFO ex2 - How to use?
+2015-05-25 10:07:32,952 [0x7fff779af300] INFO ex2 - 你说hello

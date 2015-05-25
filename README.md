@@ -5,8 +5,12 @@ log4cxx的php扩展
 ## 安装:
 
 1，安装log4cxx
-
+	
+	#for osx
 	brew install log4cxx
+	
+	#for ubuntu
+	sudo apt-get install log4cxx
 	
 2，安装php-log4cxx
 

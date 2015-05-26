@@ -166,7 +166,7 @@ ZEND_BEGIN_ARG_INFO(Logger_info_arginfo, 0)
 	ZEND_ARG_INFO(0, message)
 ZEND_END_ARG_INFO()
 
-static PHP_METHOD(Log4cxx_Logger, __construct) {
+static PHP_METHOD(Logger, __construct) {
 	logger_object *objval =  HELLO_FETCH_OBJECT(getThis());
 	char *name;
     int name_len;
@@ -193,7 +193,7 @@ static PHP_METHOD(Log4cxx_Logger, __construct) {
 	objval->logger = logger;
 }
 
-static PHP_METHOD(Log4cxx_Logger, info) {
+static PHP_METHOD(Logger, info) {
 	logger_object *objval =  HELLO_FETCH_OBJECT(getThis());
 
 	char *message;
@@ -211,7 +211,7 @@ static PHP_METHOD(Log4cxx_Logger, info) {
     }
 }
 
-static PHP_METHOD(Log4cxx_Logger, warn) {
+static PHP_METHOD(Logger, warn) {
 	logger_object *objval =  HELLO_FETCH_OBJECT(getThis());
 
 	char *message;
@@ -229,7 +229,7 @@ static PHP_METHOD(Log4cxx_Logger, warn) {
     }
 }
 
-static PHP_METHOD(Log4cxx_Logger, debug) {
+static PHP_METHOD(Logger, debug) {
 	logger_object *objval =  HELLO_FETCH_OBJECT(getThis());
 
 	char *message;
@@ -247,7 +247,7 @@ static PHP_METHOD(Log4cxx_Logger, debug) {
     }
 }
 
-static PHP_METHOD(Log4cxx_Logger, error) {
+static PHP_METHOD(Logger, error) {
 	logger_object *objval =  HELLO_FETCH_OBJECT(getThis());
 
 	char *message;
@@ -265,7 +265,7 @@ static PHP_METHOD(Log4cxx_Logger, error) {
     }
 }
 
-static PHP_METHOD(Log4cxx_Logger, trace) {
+static PHP_METHOD(Logger, trace) {
 	logger_object *objval =  HELLO_FETCH_OBJECT(getThis());
 
 	char *message;
@@ -284,12 +284,12 @@ static PHP_METHOD(Log4cxx_Logger, trace) {
 }
 
 static zend_function_entry logger_methods[] = {
-	PHP_ME(Log4cxx_Logger, __construct, Logger___construct_arginfo, ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)
-	PHP_ME(Log4cxx_Logger, info, 		Logger_info_arginfo, 		ZEND_ACC_PUBLIC)
-	PHP_ME(Log4cxx_Logger, warn, 		Logger_info_arginfo, 		ZEND_ACC_PUBLIC)
-	PHP_ME(Log4cxx_Logger, debug, 		Logger_info_arginfo, 		ZEND_ACC_PUBLIC)
-	PHP_ME(Log4cxx_Logger, error, 		Logger_info_arginfo, 		ZEND_ACC_PUBLIC)
-	PHP_ME(Log4cxx_Logger, trace, 		Logger_info_arginfo, 		ZEND_ACC_PUBLIC)
+	PHP_ME(Logger, __construct, Logger___construct_arginfo, ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)
+	PHP_ME(Logger, info, 		Logger_info_arginfo, 		ZEND_ACC_PUBLIC)
+	PHP_ME(Logger, warn, 		Logger_info_arginfo, 		ZEND_ACC_PUBLIC)
+	PHP_ME(Logger, debug, 		Logger_info_arginfo, 		ZEND_ACC_PUBLIC)
+	PHP_ME(Logger, error, 		Logger_info_arginfo, 		ZEND_ACC_PUBLIC)
+	PHP_ME(Logger, trace, 		Logger_info_arginfo, 		ZEND_ACC_PUBLIC)
 	{NULL, NULL, NULL}
 };
 
@@ -319,7 +319,7 @@ static zend_object_value logger_ctor(zend_class_entry *ce TSRMLS_DC) {
 ZEND_BEGIN_ARG_INFO(basic_configurator_arginfo, 0)
 	ZEND_ARG_INFO(0, pattern)
 ZEND_END_ARG_INFO()
-static PHP_METHOD(Log4cxx_BasicConfigurator, configure) {
+static PHP_METHOD(BasicConfigurator, configure) {
 	char *pattern;
 	int pattern_len;
 
@@ -329,13 +329,13 @@ static PHP_METHOD(Log4cxx_BasicConfigurator, configure) {
    	log4cxx_load_basic_configure(pattern);
 }
 
-static PHP_METHOD(Log4cxx_BasicConfigurator, defaultConfigure) {
+static PHP_METHOD(BasicConfigurator, defaultConfigure) {
 	log4cxx_default_basic_configure();
 }
 
 static zend_function_entry log4cxx_basicconfigurator_methods[] = {
-	PHP_ME(Log4cxx_BasicConfigurator, configure, basic_configurator_arginfo, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
-	PHP_ME(Log4cxx_BasicConfigurator, defaultConfigure, NULL, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
+	PHP_ME(BasicConfigurator, configure, basic_configurator_arginfo, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
+	PHP_ME(BasicConfigurator, defaultConfigure, NULL, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
 	{NULL, NULL, NULL}
 };
 
@@ -343,7 +343,7 @@ static zend_function_entry log4cxx_basicconfigurator_methods[] = {
 ZEND_BEGIN_ARG_INFO(property_configurator_arginfo, 0)
 	ZEND_ARG_INFO(0, property_file)
 ZEND_END_ARG_INFO()
-static PHP_METHOD(Log4cxx_PropertyConfigurator, configure) {
+static PHP_METHOD(PropertyConfigurator, configure) {
 	char *file;
 	int file_len;
 
@@ -354,7 +354,7 @@ static PHP_METHOD(Log4cxx_PropertyConfigurator, configure) {
 }
 
 static zend_function_entry log4cxx_propertyconfigurator_methods[] = {
-	PHP_ME(Log4cxx_PropertyConfigurator, configure, property_configurator_arginfo, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
+	PHP_ME(PropertyConfigurator, configure, property_configurator_arginfo, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
 	{NULL, NULL, NULL}
 };
 
@@ -363,7 +363,7 @@ static zend_function_entry log4cxx_propertyconfigurator_methods[] = {
 ZEND_BEGIN_ARG_INFO(logmanager_getlogger_arginfo, 0)
 	ZEND_ARG_INFO(0, name)
 ZEND_END_ARG_INFO()
-static PHP_METHOD(Log4cxx_LogManager, getLogger) {
+static PHP_METHOD(LogManager, getLogger) {
 	char *name;
 	int name_len;
 
@@ -389,7 +389,7 @@ static PHP_METHOD(Log4cxx_LogManager, getLogger) {
 }
 
 static zend_function_entry log4cxx_logmanager_methods[] = {
-	PHP_ME(Log4cxx_LogManager, getLogger, logmanager_getlogger_arginfo, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
+	PHP_ME(LogManager, getLogger, logmanager_getlogger_arginfo, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
 	{NULL, NULL, NULL}
 };
 
@@ -402,23 +402,27 @@ PHP_MINIT_FUNCTION(log4cxx)
 
 	zend_class_entry ce;
 
-    INIT_CLASS_ENTRY(ce, "Log4cxx_Logger", logger_methods)
+    //INIT_CLASS_ENTRY(ce, "Log4cxxLogger", logger_methods)
+    INIT_NS_CLASS_ENTRY(ce, "Log4cxx", "Logger", logger_methods);
     logger_ce = zend_register_internal_class(&ce TSRMLS_CC);
     logger_ce->create_object = logger_ctor;
     memcpy(&logger_handlers, zend_get_std_object_handlers(), sizeof(zend_object_handlers));
     logger_handlers.clone_obj = NULL;
 	
-    INIT_CLASS_ENTRY(ce, "Log4cxx_BasicConfigurator", log4cxx_basicconfigurator_methods);
+    //INIT_CLASS_ENTRY(ce, "Log4cxx_BasicConfigurator", log4cxx_basicconfigurator_methods);
+    INIT_NS_CLASS_ENTRY(ce, "Log4cxx", "BasicConfigurator", log4cxx_basicconfigurator_methods);
     log4cxx_basicconfigurator_ce = zend_register_internal_class(&ce TSRMLS_CC);
     memcpy(&log4cxx_basicconfigurator_handlers, zend_get_std_object_handlers(), sizeof(zend_object_handlers));
     log4cxx_basicconfigurator_handlers.clone_obj = NULL;
 
-    INIT_CLASS_ENTRY(ce, "Log4cxx_PropertyConfigurator", log4cxx_propertyconfigurator_methods);
+    //INIT_CLASS_ENTRY(ce, "Log4cxx_PropertyConfigurator", log4cxx_propertyconfigurator_methods);
+    INIT_NS_CLASS_ENTRY(ce, "Log4cxx", "PropertyConfigurator", log4cxx_propertyconfigurator_methods);
     log4cxx_propertyconfigurator_ce = zend_register_internal_class(&ce TSRMLS_CC);
     memcpy(&log4cxx_propertyconfigurator_handlers, zend_get_std_object_handlers(), sizeof(zend_object_handlers));
     log4cxx_propertyconfigurator_handlers.clone_obj = NULL;
 
-    INIT_CLASS_ENTRY(ce, "Log4cxx_LogManager", log4cxx_logmanager_methods);
+    //INIT_CLASS_ENTRY(ce, "Log4cxxLogManager", log4cxx_logmanager_methods);
+    INIT_NS_CLASS_ENTRY(ce, "Log4cxx", "LogManager", log4cxx_logmanager_methods);
     log4cxx_logmanager_ce = zend_register_internal_class(&ce TSRMLS_CC);
     memcpy(&log4cxx_logmanager_handlers, zend_get_std_object_handlers(), sizeof(zend_object_handlers));
     log4cxx_logmanager_handlers.clone_obj = NULL;
